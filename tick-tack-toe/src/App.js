@@ -9,7 +9,7 @@ export default function Game() {
   // History of moves!
   //const [history, setHistory] = useState([Array(9).fill(null)]);
   //const currentCells = history[history.length - 1];
-  
+
   function handlePlay(next) {
     setCells(next);
     setXIsNext(!xIsNext);
@@ -21,11 +21,9 @@ export default function Game() {
   }
 
   return (
-<div className="game">
+    <div className="game">
       <div className="game-board">
-        {/*<Board xIsNext={xIsNext} squares={currentCells} onPlay={handlePlay}/>*/}
-
-        <Board xIsNext={xIsNext} cells={cells} onPlay={handlePlay}/>
+        <Board xIsNext={xIsNext} cells={cells} onPlay={handlePlay} />
 
       </div>
       <div className="game-info">
@@ -38,15 +36,13 @@ function Cell({ value, onSquareClick }) {
   return <button className="square" onClick={onSquareClick}>{value}</button>;
 }
 
+
+
 function Board({ xIsNext, cells, onPlay }) {
   // winner
   const winner = calculateWinner(cells);
-  let status;
-  if (winner) {
-    status = "Winner: " + winner;
-  } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
-  }
+  let status = statusText(winner, xIsNext)
+  
 
   // click on the cell
   function handleClick(i) {
@@ -64,29 +60,34 @@ function Board({ xIsNext, cells, onPlay }) {
     else
       next[i] = 'O';
 
-      onPlay(next);
+    onPlay(next);
+  }
 
+  function populate_cells() {
+    const rows = [0, 1, 2];
+    const cols = [0, 1, 2];
+    const row_count = rows.length;
+    let items = rows.map((row_id) => {
+      let line_items = cols.map((col_id) => {
+        const cell_id = row_count * row_id + col_id;
+        return <Cell value={cells[cell_id]} onSquareClick={() => handleClick(cell_id)} />
+      });
+
+      return (
+        <div className="board-row">
+          {line_items}
+        </div>);
+    });
+
+    return items;
   }
 
   // board UI
+  let items = populate_cells();
   return (
     <>
       <div className="status">{status}</div>
-      <div className="board-row">
-        <Cell value={cells[0]} onSquareClick={() => handleClick(0)} />
-        <Cell value={cells[1]} onSquareClick={() => handleClick(1)} />
-        <Cell value={cells[2]} onSquareClick={() => handleClick(2)} />
-      </div>
-      <div className="board-row">
-        <Cell value={cells[3]} onSquareClick={() => handleClick(3)} />
-        <Cell value={cells[4]} onSquareClick={() => handleClick(4)} />
-        <Cell value={cells[5]} onSquareClick={() => handleClick(5)} />
-      </div>
-      <div className="board-row">
-        <Cell value={cells[6]} onSquareClick={() => handleClick(6)} />
-        <Cell value={cells[7]} onSquareClick={() => handleClick(7)} />
-        <Cell value={cells[8]} onSquareClick={() => handleClick(8)} />
-      </div>
+      {items}
     </>
   );
 }
@@ -109,4 +110,9 @@ function calculateWinner(cells) {
     }
   }
   return null;
+}
+
+function statusText(winner, xIsNext) {
+  let status = (winner) ? "Winner: " + winner : "Next player: " + (xIsNext ? "X" : "O");
+  return status
 }
