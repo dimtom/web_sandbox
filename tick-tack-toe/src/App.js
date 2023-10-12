@@ -20,20 +20,27 @@ export default function Game() {
     setXIsNext(true);
   }
 
+  function handleUndo() {
+    // TODO: implement
+  }
+
+  function handleRedo() {
+    // TODO: implement
+  }
+
   return (
     <div className="game">
-      <div className="game-board">
         <Board xIsNext={xIsNext} cells={cells} onPlay={handlePlay} />
-
-      </div>
-      <div className="game-info">
+      <div className="game-buttons">
+        <button onClick={handleUndo}> &lt;&lt;</button>
         <button onClick={() => handleReset()}>Reset</button>
+        <button onClick={handleRedo}> &gt;&gt; </button>
       </div>
     </div>);
 }
 
 function Cell({ value, onSquareClick }) {
-  return <button className="square" onClick={onSquareClick}>{value}</button>;
+  return <button className="cell" onClick={onSquareClick}>{value}</button>;
 }
 
 
@@ -42,7 +49,7 @@ function Board({ xIsNext, cells, onPlay }) {
   // winner
   const winner = calculateWinner(cells);
   let status = statusText(winner, xIsNext)
-  
+
 
   // click on the cell
   function handleClick(i) {
@@ -86,8 +93,12 @@ function Board({ xIsNext, cells, onPlay }) {
   let items = populate_cells();
   return (
     <>
-      <div className="status">{status}</div>
-      {items}
+      <div className="board">
+        <div className="board-status">{status}</div>
+        <div className="board-table">
+        {items}
+        </div>
+      </div>
     </>
   );
 }
