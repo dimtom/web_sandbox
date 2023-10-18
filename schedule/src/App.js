@@ -1,5 +1,7 @@
 import './App.css';
-import Players from './players';
+import Players from './Players.js';
+import ScheduleByPlayers from './ScheduleByPlayers.js'
+import ScheduleByRounds from './ScheduleByRounds.js'
 import {useRef} from 'react';
 
 export default function App(){
@@ -30,7 +32,9 @@ export default function App(){
     console.log(fileObj.value)
   };
 
-  const data = require("./players.json");
+  const players_json = require("./data/players.json");
+  const people = players_json.people;
+  const schedule_json = require("./data/schedule.json")
   return (
     <div>
       <input
@@ -43,7 +47,9 @@ export default function App(){
       <button onClick={handleClick}>Open file upload box</button>
       <br/>
       
-      <Players data={data} />
+      <Players players={people} />
+      <ScheduleByRounds schedule = {schedule_json} players = {people}/>
+      <ScheduleByPlayers schedule = {schedule_json} players = {people}/>
     </div>
   );
 };

@@ -1,15 +1,14 @@
-import './players.css'
+import './Players.css'
 
-function Players({data}) 
+function Players({players}) 
 {
-    const text = JSON.stringify(data);
-    const listItems = data.people.map(player => <li>({player.id}) {player.name}</li>);  
+    const listItems = players.map(player => <li>({player.id}) {player.name}</li>);  
     return (<div>
         <h1>Players</h1>
-        <ui>
+        <ul>
             {listItems}
-        </ui>
-        {/*<textarea rows="20" cols="40" defaultValue = {text}></textarea>*/}
+        </ul>
         </div>);
 }
+
 export default Players;
