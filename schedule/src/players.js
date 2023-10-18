@@ -1,14 +1,22 @@
 import './Players.css'
 
-function Players({players}) 
-{
-    const listItems = players.map(player => <li>({player.id}) {player.name}</li>);  
-    return (<div>
+function Players({ players }) {
+    const listItems = players.map(player => {
+        return <tr>
+            <td>{player.id}</td>
+            <td>{player.name}</td>
+        </tr>;
+    });
+    return <div>
         <h1>Players</h1>
-        <ul>
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
             {listItems}
-        </ul>
-        </div>);
+        </table>
+    </div>;
 }
 
 export default Players;

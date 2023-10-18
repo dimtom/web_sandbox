@@ -1,22 +1,19 @@
 
 import Game from './Game'
+import Round from './Round'
 
-function SchedulByRounds({schedule, players}) {
-    let games_items = schedule.games.map((game) => 
-    {
-        return <Game game={game} players={players}/>;
+function SchedulByRounds({ schedule, players }) {
+    let round_lines = schedule.rounds.map((round) => {
+        return <Round schedule={schedule} round = {round} players={players}/>;       
     });
 
     let conf_text = JSON.stringify(schedule.configuration);
-    
+
     return (
         <div>
             <h2>Schedule by Rounds</h2>
-            <p>Total number of games: {schedule.games.length}</p>
-            <h3>Configuration:</h3>
-            <p>{conf_text}</p>
+            {round_lines}
 
-            {games_items}
         </div>
     );
 }
