@@ -3,7 +3,7 @@ import Game from './Game';
 function Round({schedule, round, players}) {
     let game_items = round.gameIds.map(id => {
         let game = schedule.games[id];
-        return <Game game={game} players={players} />;
+        return <Game key={game.id} game={game} players={players} />;
     });
 
     return <div>

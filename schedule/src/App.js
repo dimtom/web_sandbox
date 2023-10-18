@@ -55,7 +55,7 @@ export default function App() {
 
       <div id="TabScheduleRounds" className="tabcontent">
         <h2>Scheule by Rounds</h2>
-        {/*<ScheduleByRounds schedule={schedule_json} players={people} />*/}
+        <ScheduleByRounds schedule={schedule_json} players={people} />
       </div>
     </div>
   );
