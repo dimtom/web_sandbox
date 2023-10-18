@@ -2,55 +2,61 @@ import './App.css';
 import Players from './Players.js';
 import ScheduleByPlayers from './ScheduleByPlayers.js'
 import ScheduleByRounds from './ScheduleByRounds.js'
-import {useRef} from 'react';
 
-export default function App(){
-  const inputRef = useRef(null);
+export default function App() {
+  function handleTabChange(name) { 
+    let tabName = "Tab" + name
+    
 
-  const handleClick = () => {
-    // 👇️ open file input box on click of another element
-    inputRef.current.click();
-  };
-
-  const handleFileChange = event => {
-    const fileObj = event.target.files && event.target.files[0];
-    if (!fileObj) {
-      return;
+    // hide all tabs except current one
+    var tabs = document.getElementsByClassName("tabcontent");
+    for (let tab of tabs) {
+      tab.style.display = (tab.id === tabName) ? "block" : "none";
     }
-
-    console.log('fileObj is', fileObj);
-
-    // 👇️ reset file input
-    event.target.value = null;
-
-    // 👇️ is now empty
-    console.log(event.target.files);
-
-    // 👇️ can still access file object here
-    console.log(fileObj);
-    console.log(fileObj.name);
-    console.log(fileObj.value)
-  };
+  
+    // deactivate all buttons except current one
+    /*
+    let buttonName = "Button" + name
+    let buttons = document.getElementsByClassName("tablink");
+    for (let button of buttons) {
+      if (button.id === buttonName)
+        button.className = button.className.replace(" active", "")
+      else
+        button.className += " active";
+    }*/
+  }
 
   const players_json = require("./data/players.json");
   const people = players_json.people;
   const schedule_json = require("./data/schedule.json")
   return (
-    <div>
-      <input
-        style={{display: 'none'}}
-        ref={inputRef}
-        type="file"
-        onChange={handleFileChange}
-      />
+    <div className="App">
+      <h1>Mafia schedule portal</h1>
+      <div className="tab">
+        <button className="tablink" id="ButtonLoad"  onClick={()=>handleTabChange("Load")}>Load </button>
+        <button className="tablink" id="ButtonPlayers"  onClick={()=>handleTabChange("Players")}>Players</button>
+        <button className="tablink" id="ButtonSchedulePlayers"  onClick={()=>handleTabChange("SchedulePlayers")}>Schedule - Players</button>
+        <button className="tablink" id="ButtonScheduleRounds"  onClick={()=>handleTabChange("ScheduleRounds")}>Schedule - Rounds</button>
+      </div>
 
-      <button onClick={handleClick}>Open file upload box</button>
-      <br/>
-      
-      <Players players={people} />
-      <ScheduleByPlayers schedule = {schedule_json} players = {people}/>
-      <ScheduleByRounds schedule = {schedule_json} players = {people}/>
-      
+      <div id="TabLoad" className="tabcontent">
+        <h2>TODO: load schedule JSON</h2>
+      </div>
+
+      <div id="TabPlayers" className="tabcontent">
+        <h2>List of players</h2>
+        <Players players={people} />
+      </div>
+
+      <div id="TabSchedulePlayers" className="tabcontent">
+        <h2>Schedule by Players</h2>
+        {/*<ScheduleByPlayers schedule={schedule_json} players={people} />*/}
+      </div>
+
+      <div id="TabScheduleRounds" className="tabcontent">
+        <h2>Scheule by Rounds</h2>
+        {/*<ScheduleByRounds schedule={schedule_json} players={people} />*/}
+      </div>
     </div>
   );
 };
