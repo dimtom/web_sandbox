@@ -48,8 +48,9 @@ export default function App(){
       <br/>
       
       <Players players={people} />
-      <ScheduleByRounds schedule = {schedule_json} players = {people}/>
       <ScheduleByPlayers schedule = {schedule_json} players = {people}/>
+      <ScheduleByRounds schedule = {schedule_json} players = {people}/>
+      
     </div>
   );
 };
