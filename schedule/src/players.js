@@ -1,22 +1,26 @@
 import './Players.css'
 
 function Players({ players }) {
-    const listItems = players.map(player => {
-        return <tr>
+    const listItems = players.map((player, index) => {
+        return <tr key={index}>
             <td>{player.id}</td>
             <td>{player.name}</td>
         </tr>;
     });
-    return <div>
-        <h1>Players</h1>
+    
+    return (
         <table border="1">
-            <tr>
+            <thead>
+            <tr key="header">
                 <th>ID</th>
                 <th>Name</th>
             </tr>
+            </thead>
+            <tbody>
             {listItems}
-        </table>
-    </div>;
+            </tbody>
+            
+        </table>);
 }
 
 export default Players;
