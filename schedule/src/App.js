@@ -2,6 +2,7 @@ import './App.css';
 import Players from './Players.js';
 import ScheduleByPlayers from './ScheduleByPlayers.js'
 import ScheduleByRounds from './ScheduleByRounds.js'
+import OpponentsMatrix from './OpponentsMatrix'
 
 export default function App() {
   function handleTabChange(name) { 
@@ -37,6 +38,7 @@ export default function App() {
         <button className="tablink" id="ButtonPlayers"  onClick={()=>handleTabChange("Players")}>Players</button>
         <button className="tablink" id="ButtonSchedulePlayers"  onClick={()=>handleTabChange("SchedulePlayers")}>Schedule - Players</button>
         <button className="tablink" id="ButtonScheduleRounds"  onClick={()=>handleTabChange("ScheduleRounds")}>Schedule - Rounds</button>
+        <button className="tablink" id="ButtonOpponentsMatrix" onClick={()=>handleTabChange("OpponentsMatrix")}>Opponents matrix</button>
       </div>
 
       <div id="TabLoad" className="tabcontent">
@@ -56,6 +58,11 @@ export default function App() {
       <div id="TabScheduleRounds" className="tabcontent">
         <h2>Scheule by Rounds</h2>
         <ScheduleByRounds schedule={schedule_json} players={people} />
+      </div>
+
+      <div id="TabOpponentsMatrix" className="tabcontent">
+        <h2>Opponents matrix</h2>
+        <OpponentsMatrix schedule={schedule_json} players={people} />
       </div>
     </div>
   );
